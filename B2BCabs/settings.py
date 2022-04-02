@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "apps.accounts",
     'apps.booking',
-    'apps.payment'
+    'apps.payment',
+    'apps.contactus',
+    'apps.subscribers',
+    'apps.testimonials'
 ]
 
 MIDDLEWARE = [
@@ -146,3 +149,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+razorpay_id = 'rzp_test_XKDxN06zGKh0EY'
+razorpay_secret_key = '6ssNF37cFrPzB1vebbFTHmey'

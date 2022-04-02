@@ -18,8 +18,11 @@ from django.urls import path,include,re_path
 
 api_v1_urls = [
     re_path("accounts/", include("apps.accounts.api_v1.urls", namespace="v1-account")),
-    re_path("booking/", include("apps.booking.api_v1.urls", namespace="v1-jobookingb")),
+    re_path("booking/", include("apps.booking.api_v1.urls", namespace="v1-booking")),
     re_path("payment/", include("apps.payment.api_v1.urls", namespace="v1-payment")),
+    re_path("contactus/", include("apps.contactus.api_v1.urls", namespace="v1-contactus")),
+    re_path("subscribers/", include("apps.subscribers.api_v1.urls", namespace="v1-subscribers")),
+    re_path("testimonials/", include("apps.testimonials.api_v1.urls", namespace="v1-testimonials")),
 ]
 
 urlpatterns = [

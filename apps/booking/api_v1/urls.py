@@ -1,9 +1,10 @@
 from django.urls import re_path
 from rest_framework import routers
-from apps.accounts.api_v1 import views
+from apps.booking.api_v1 import views
 
 router = routers.SimpleRouter()
-# router.register("booking", views.BookingViewSet)
+router.register("postbooking", views.PostBookingViewSet)
+router.register("confirmbooking", views.ConfirmBookingViewSet)
 
 app_name = "booking"
 

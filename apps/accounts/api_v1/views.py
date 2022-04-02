@@ -16,9 +16,10 @@ class VendorRegistrationAPIView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
+        password = make_password(self.request.data.pop("password"))
         serializer = UserCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+        user = serializer.save(password=password)
         token, created = Token.objects.get_or_create(user=user)
         return Response(
             data=serializer.data,
