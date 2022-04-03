@@ -11,4 +11,5 @@ urlpatterns = [
     re_path(r"payment-link-create", views.PaymentLinkCreateAPIView.as_view()),
     re_path(r"create-razorpay-account", views.CreateRazorpayAcoountAPIView.as_view()),
     re_path(r"payment-confirm", views.PaymentConfirmAPIView.as_view()),
+    re_path(r"check-razorpay-account", views.CheckRazorpayAcoountAPIView.as_view()),
 ] + router.urls

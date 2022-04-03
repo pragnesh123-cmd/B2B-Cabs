@@ -9,5 +9,5 @@ router.register("confirmbooking", views.ConfirmBookingViewSet)
 app_name = "booking"
 
 urlpatterns = [
-    # re_path(r"social-registration/", views.SocialSignupAPIView.as_view()),
+    re_path(r"pickup-action/(?P<pk>[0-9]+)/$", views.PickupActionAPIView.as_view()),
 ] + router.urls

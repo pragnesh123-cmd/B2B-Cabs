@@ -23,7 +23,7 @@ class PostBookingReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostBooking
         exclude = (
-            "commission_of_vendor",
+            # "commission_of_vendor",
             "is_pickup",
         )
         depth = 1
@@ -44,3 +44,9 @@ class ConfirmBookingReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConfirmBooking
         fields = "__all__"
+
+class PickUpActionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostBooking
+        fields = ("is_pickup",)    
+

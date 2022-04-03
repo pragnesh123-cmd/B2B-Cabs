@@ -15,6 +15,21 @@ import razorpay
 client = razorpay.Client(auth=("rzp_test_XKDxN06zGKh0EY", "6ssNF37cFrPzB1vebbFTHmey"))
 
 
+class CheckRazorpayAcoountAPIView(generics.RetrieveAPIView):
+    authentication_classes = (TokenAuthentication,)
+
+    def get(self, request, *args, **kwargs):
+        user_id = request.user.id
+        vendor = User.objects.get(id=user_id)
+        data = {}
+        if vendor.razorpay_account_id is not None:
+            data['valid'] = True
+            data['msg'] = 'this vendor Razorpay account already exists'
+        else:
+            data['valid'] = False   
+            data['msg'] = 'this vendor Razorpay account does not exists, please create first razorpay account then you access to this permissions' 
+        return Response(data)
+
 class CreateRazorpayAcoountAPIView(generics.CreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
@@ -129,3 +144,4 @@ class PaymentConfirmAPIView(generics.CreateAPIView):
         r = requests.request("POST",url, data=json.dumps(data), headers=headers,auth=("rzp_test_XKDxN06zGKh0EY","6ssNF37cFrPzB1vebbFTHmey"))
         
         return Response()
+

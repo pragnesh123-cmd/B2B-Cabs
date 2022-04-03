@@ -5,13 +5,12 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import SAFE_METHODS
 from rest_framework import generics, status
 from apps.booking.models import PostBooking,ConfirmBooking
-from apps.booking.api_v1.serializers import PostBookingCreateSerializer,PostBookingReadSerializer,ConfirmBookingReadSerializer,ConfirmBookingWriteSerializer
-
+from apps.booking.api_v1.serializers import PostBookingCreateSerializer,PostBookingReadSerializer,ConfirmBookingReadSerializer,ConfirmBookingWriteSerializer,PickUpActionSerializer
+from apps.accounts.models import User
 
 
 class PostBookingViewSet(ModelViewSet):
     authentication_classes = (TokenAuthentication,)
-    # permission_classes = (AllowAny,)
     pagination_class = None
     queryset = PostBooking.objects.all()
 
@@ -22,7 +21,9 @@ class PostBookingViewSet(ModelViewSet):
 
     def get_queryset(self):
         queryset = super(PostBookingViewSet, self).get_queryset()
-        return queryset
+        user = User.objects.get(id=self.request.user.id)
+        
+        return queryset.filter(vendor_id=self.request.user.id,city=user.city)
 
     def create(self,request,*args,**kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -42,7 +43,6 @@ class PostBookingViewSet(ModelViewSet):
 
 class ConfirmBookingViewSet(ModelViewSet):
     authentication_classes = (TokenAuthentication,)
-    # permission_classes = (AllowAny,)
     pagination_class = None
     queryset = PostBooking.objects.all()
 
@@ -60,7 +60,6 @@ class ConfirmBookingViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(vendor_id=request.user.id,postbooking_id=postbooking_id)
-        print(serializer.data)
         return Response(serializer.data,
             status=status.HTTP_201_CREATED,
         )    
@@ -71,3 +70,12 @@ class ConfirmBookingViewSet(ModelViewSet):
     #     serializer.is_valid(raise_exception=True)
     #     serializer.save()
     #     return Response(PostBookingReadSerializer(instance).data, status=status.HTTP_200_OK)    
+
+
+class PickupActionAPIView(generics.UpdateAPIView):
+    authentication_classes = (TokenAuthentication,)
+    queryset = PostBooking.objects.all()
+    serializer_class = PickUpActionSerializer
+   
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)  
