@@ -23,6 +23,7 @@ api_v1_urls = [
     re_path("contactus/", include("apps.contactus.api_v1.urls", namespace="v1-contactus")),
     re_path("subscribers/", include("apps.subscribers.api_v1.urls", namespace="v1-subscribers")),
     re_path("testimonials/", include("apps.testimonials.api_v1.urls", namespace="v1-testimonials")),
+    re_path("manage_pages/", include("apps.manage_pages.api_v1.urls", namespace="v1-manage_pages")),
 ]
 
 urlpatterns = [

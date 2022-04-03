@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-&!!dy=nzy(umtm&f!uc_=g$h^fsn!4jqto5uheovtwjy-#=yzq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'apps.payment',
     'apps.contactus',
     'apps.subscribers',
-    'apps.testimonials'
+    'apps.testimonials',
+    'apps.manage_pages'
 ]
 
 MIDDLEWARE = [
